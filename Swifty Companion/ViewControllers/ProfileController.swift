@@ -14,6 +14,7 @@ class ProfileController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         tableView.allowsSelection = false
         tableView.register(ProfileCell.self, forCellReuseIdentifier: "OneProfile")
         tableView.separatorStyle = .none
@@ -28,7 +29,9 @@ class ProfileController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OneProfile", for: indexPath)
-        cell.textLabel?.text = login
+        if let profCell = cell as? ProfileCell {
+            Manager42.shared.getUser(for: login, in: profCell)
+        }
         return cell
     }
 }

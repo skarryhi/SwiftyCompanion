@@ -36,7 +36,7 @@ class FinderController: UIViewController, UITextFieldDelegate {
         addTextField()
         addLable()
         enableHideKeyboard()
-        Manager42.shared.requestAnAccess()
+        Manager42.shared.requestAccessToken()
     }
     
     func enableHideKeyboard() {
