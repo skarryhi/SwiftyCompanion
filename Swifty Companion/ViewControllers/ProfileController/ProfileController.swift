@@ -11,6 +11,7 @@ class ProfileController: UITableViewController {
 
     var login = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

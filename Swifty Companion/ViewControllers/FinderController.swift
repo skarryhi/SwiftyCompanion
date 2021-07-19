@@ -36,8 +36,9 @@ class FinderController: UIViewController, UITextFieldDelegate {
         addTextField()
         addLable()
         enableHideKeyboard()
-        Manager42.shared.requestAccessToken()
     }
+    
+    
     
     func enableHideKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
