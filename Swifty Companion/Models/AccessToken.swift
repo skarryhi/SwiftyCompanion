@@ -8,8 +8,8 @@
 import Foundation
 
 struct AccessToken: Codable {
-    let access_token: String
-    let token_type: String
+    var access_token: String?
+    var token_type: String?
 }
 
 struct ErrorAccessToken: Codable {

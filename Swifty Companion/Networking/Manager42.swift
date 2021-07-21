@@ -14,13 +14,36 @@ class Manager42 {
     private let host = "api.intra.42.fr"
     private let pathToken = "/oauth/token"
     private let pathUser = "/v2/users/"
-    private var accessToken: AccessToken? = AccessToken(access_token: "e817bec0ba2dca1ba22084cd594582ab75f93971813e17140482c007c584fec2", token_type: "bearer")
+    
+    var token: Token?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private let presenrerOfCell = PresenrerOfCell()
 
     static let shared = Manager42()
     private init() {}
     
+    func fetchToken() {
+        do {
+            let data: [Token] = try context.fetch(Token.fetchRequest())
+            
+            if let getted = data.first {
+                self.token = getted
+                print("getFromCach: \(self.token?.access_token)")
+            }
+            
+        } catch {
+            print("can't to get data")
+        }
+    }
+    
     func accessTokenIsActive() {
+        if token == nil {
+            fetchToken()
+        }
+        guard let _ = token else {
+            self.requestAccessToken()
+            return
+        }
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
@@ -30,8 +53,8 @@ class Manager42 {
             return
         }
         var request = URLRequest(url: url)
-        guard let autorization1 = accessToken?.token_type,
-            let autorization2 = accessToken?.access_token else { return }
+        guard let autorization1 = token?.token_type,
+            let autorization2 = token?.access_token else { return }
         let autorization = autorization1 + " " + autorization2
         request.addValue(autorization, forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -78,7 +101,25 @@ class Manager42 {
             } catch { print (error) }
             
             if let jsonResult = try? JSONDecoder().decode(AccessToken.self, from: data) {
-                self.accessToken = jsonResult
+                DispatchQueue.main.async {
+                    if let token = self.token {
+                        self.context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
+                        do {
+                            try self.context.save()
+                        } catch {
+                            print("Does't save")
+                        }
+                    }
+                    let newToken = Token(context: self.context)
+                    newToken.access_token = jsonResult.access_token
+                    newToken.token_type = jsonResult.token_type
+                    do {
+                        try self.context.save()
+                    } catch {
+                        print("Does't save")
+                    }
+                    self.fetchToken()
+                }
             }
             else { print("Not convert") }
         }.resume()
@@ -104,8 +145,8 @@ class Manager42 {
             return
         }
         var request = URLRequest(url: url)
-        guard let autorization1 = accessToken?.token_type,
-            let autorization2 = accessToken?.access_token else { return }
+        guard let autorization1 = token?.token_type,
+            let autorization2 = token?.access_token else { return }
         let autorization = autorization1 + " " + autorization2
         request.addValue(autorization, forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -132,6 +173,4 @@ class Manager42 {
             }
         }.resume()
     }
-    
-    
 }

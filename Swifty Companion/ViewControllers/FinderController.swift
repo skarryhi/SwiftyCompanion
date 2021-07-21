@@ -9,8 +9,6 @@ import UIKit
 
 class FinderController: UIViewController, UITextFieldDelegate {
     
-    let manager42 = Manager42.shared
-    
     var textField: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
@@ -27,6 +25,8 @@ class FinderController: UIViewController, UITextFieldDelegate {
         lable.textAlignment = .center
         return lable
     }()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,8 @@ class FinderController: UIViewController, UITextFieldDelegate {
         addLable()
         enableHideKeyboard()
     }
+    
+
     
     
     
