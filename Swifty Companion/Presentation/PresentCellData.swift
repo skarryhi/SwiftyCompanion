@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PresenrerOfCell {
+class PresenterOfCell {
     
     private func setupLevel(_ cell: ProfileCell, for user: User) {
         
@@ -39,7 +39,7 @@ class PresenrerOfCell {
     }
     
     func noLogin(_ cell: ProfileCell) {
-        sleep(1)
+//        sleep(1)
         cell.indicator.stopAnimating()
         
         cell.userNamePool.text = "Login not found"

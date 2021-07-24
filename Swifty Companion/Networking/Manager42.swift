@@ -16,113 +16,16 @@ class Manager42 {
     private let pathUser = "/v2/users/"
     
     var token: Token?
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    private let presenrerOfCell = PresenrerOfCell()
-
-    static let shared = Manager42()
-    private init() {}
+    private let presenrerOfCell = PresenterOfCell()
+    var dataworking: Dataworking!
     
-    func fetchToken() {
-        do {
-            let data: [Token] = try context.fetch(Token.fetchRequest())
-            
-            if let getted = data.first {
-                self.token = getted
-                print("getFromCach: \(self.token?.access_token)")
-            }
-            
-        } catch {
-            print("can't to get data")
-        }
-    }
-    
-    func accessTokenIsActive() {
-        if token == nil {
-            fetchToken()
-        }
-        guard let _ = token else {
-            self.requestAccessToken()
-            return
-        }
+    private func getUrl(_ path: String, _ queryItems: [URLQueryItem]?) -> URL? {
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
-        components.path = pathToken + "/info"
-        guard let url = components.url else {
-            print("no connect")
-            return
-        }
-        var request = URLRequest(url: url)
-        guard let autorization1 = token?.token_type,
-            let autorization2 = token?.access_token else { return }
-        let autorization = autorization1 + " " + autorization2
-        request.addValue(autorization, forHTTPHeaderField: "Authorization")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                print("NO HAVE DATA")
-                return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch { print (error) }
-            
-            if (try? JSONDecoder().decode(ErrorAccessToken.self, from: data)) != nil { self.requestAccessToken() }
-        }.resume()
-    }
-    
-    
-    private func requestAccessToken() {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = pathToken
-        components.queryItems = [
-            URLQueryItem(name: "grant_type", value: "client_credentials"),
-            URLQueryItem(name: "client_id", value: uid),
-            URLQueryItem(name: "client_secret", value: secret)
-        ]
-        
-        guard let url = components.url else {
-            print("no connect")
-            return
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else {
-                print("NO HAVE DATA")
-                return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch { print (error) }
-            
-            if let jsonResult = try? JSONDecoder().decode(AccessToken.self, from: data) {
-                DispatchQueue.main.async {
-                    if let token = self.token {
-                        self.context.delete(<#T##object: NSManagedObject##NSManagedObject#>)
-                        do {
-                            try self.context.save()
-                        } catch {
-                            print("Does't save")
-                        }
-                    }
-                    let newToken = Token(context: self.context)
-                    newToken.access_token = jsonResult.access_token
-                    newToken.token_type = jsonResult.token_type
-                    do {
-                        try self.context.save()
-                    } catch {
-                        print("Does't save")
-                    }
-                    self.fetchToken()
-                }
-            }
-            else { print("Not convert") }
-        }.resume()
+        components.path = path
+        components.queryItems = queryItems
+        return components.url
     }
     
     private func getImage(for user: User) -> UIImage? {
@@ -134,21 +37,47 @@ class Manager42 {
             image = img}
         return image
     }
+
     
-    func getUser(for login: String, in cell: ProfileCell) {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = pathUser + login
-        guard let url = components.url else {
-            print("no connect")
+    func accessTokenIsActive() {
+        
+        if token == nil {
+            dataworking.fetchToken{ token in
+                self.token = token
+            }
+        }
+        guard token != nil else {
+            self.requestAccessToken()
             return
         }
+        
+        guard let url = getUrl(pathToken + "/info", nil) else { return }
+        
         var request = URLRequest(url: url)
-        guard let autorization1 = token?.token_type,
-            let autorization2 = token?.access_token else { return }
-        let autorization = autorization1 + " " + autorization2
-        request.addValue(autorization, forHTTPHeaderField: "Authorization")
+        guard let token = token else { return }
+        request.addValue("\(token.token_type!) \(token.access_token!)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else { print("NO HAVE DATA"); return }
+
+            if (try? JSONDecoder().decode(ErrorAccessToken.self, from: data)) != nil {
+                self.requestAccessToken() }
+            
+        }.resume()
+    }
+    
+    
+    private func requestAccessToken() {
+        
+        guard let url = getUrl(pathToken, [
+            URLQueryItem(name: "grant_type", value: "client_credentials"),
+            URLQueryItem(name: "client_id", value: uid),
+            URLQueryItem(name: "client_secret", value: secret)
+        ]) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 print("NO HAVE DATA")
@@ -156,11 +85,43 @@ class Manager42 {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
+                print(#function)
+            } catch { print (error) }
+            
+            if let jsonResult = try? JSONDecoder().decode(AccessToken.self, from: data) {
+                DispatchQueue.main.async {
+                    self.dataworking.rewriteToken(old: self.token, new: jsonResult) { token in
+                        self.token = token
+                    }
+                }
+            }
+            else { print("Not convert") }
+        }.resume()
+    }
+        
+    func getUser(for login: String, in cell: ProfileCell) {
+        
+        guard let url = getUrl(pathUser + login, nil) else { return }
+        
+        var request = URLRequest(url: url)
+        guard let autorization1 = token?.token_type,
+            let autorization2 = token?.access_token else { return }
+        let autorization = autorization1 + " " + autorization2
+        request.addValue(autorization, forHTTPHeaderField: "Authorization")
+        
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("NO HAVE DATA")
+                return }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                print(json)
             } catch { print (error) }
 
             if let user = try? JSONDecoder().decode(User.self, from: data) {
-                print(user)
+//                print(user)
                 guard let image = self.getImage(for: user) else {return}
                 DispatchQueue.main.async {
                     self.presenrerOfCell.setupCell(cell, for: user, with: image)

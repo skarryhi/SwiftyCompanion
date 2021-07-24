@@ -10,6 +10,7 @@ import UIKit
 class ProfileController: UITableViewController {
 
     var login = ""
+    weak var managerApi: ManagerApi?
     
     
     override func viewDidLoad() {
@@ -19,6 +20,7 @@ class ProfileController: UITableViewController {
         tableView.allowsSelection = false
         tableView.register(ProfileCell.self, forCellReuseIdentifier: "OneProfile")
         tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 267
     }
 
     // MARK: - Table view data source
@@ -31,7 +33,7 @@ class ProfileController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OneProfile", for: indexPath)
         if let profCell = cell as? ProfileCell {
-            Manager42.shared.getUser(for: login, in: profCell)
+            managerApi?.manager42.getUser(for: login, in: profCell)
         }
         return cell
     }

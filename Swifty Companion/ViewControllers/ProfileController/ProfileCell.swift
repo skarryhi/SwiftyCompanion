@@ -66,7 +66,9 @@ class ProfileCell: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+    
         
         addSubview(indicator)
         indicator.startAnimating()
@@ -134,7 +136,7 @@ class ProfileCell: UITableViewCell {
                          width: 0,
                          height: UIScreen.main.bounds.height / 30,
                          enableInsets: false)
-        
+
         addSubview(levelLable)
         levelLable.anchor(top: level.topAnchor,
                           left: level.leftAnchor,

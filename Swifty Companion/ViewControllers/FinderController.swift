@@ -7,7 +7,15 @@
 
 import UIKit
 
-class FinderController: UIViewController, UITextFieldDelegate {
+protocol ManagerApi: class {
+    var manager42: Manager42 { get }
+}
+
+protocol ManagerData: class {
+    var managerData: ManagerData { get }
+}
+
+class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
     
     var textField: UITextField = {
         let tf = UITextField()
@@ -26,28 +34,30 @@ class FinderController: UIViewController, UITextFieldDelegate {
         return lable
     }()
     
+    let manager42 = Manager42()
+    let managerData = Dataworking()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        manager42.dataworking = managerData
+        setupController()
+    }
+    
+    private func enableHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+    
+    // MARK: - View
+    
+    private func setupController() {
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         textField.delegate = self
         addTextField()
         addLable()
         enableHideKeyboard()
     }
-    
-
-    
-    
-    
-    func enableHideKeyboard() {
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)
-    }
-    
-    // MARK: - View
     
     private func addTextField() {
         view.addSubview(textField)
@@ -90,6 +100,7 @@ class FinderController: UIViewController, UITextFieldDelegate {
         let vc = ProfileController()
         if let text = textField.text, textField.text != "" {
             vc.login = text
+            vc.managerApi = self
             present(vc, animated: true, completion: nil)
         }
         return true

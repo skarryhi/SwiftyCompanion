@@ -27,7 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        Manager42.shared.accessTokenIsActive()
+        if let rc = window?.rootViewController as? ManagerApi {
+            rc.manager42.accessTokenIsActive()
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
