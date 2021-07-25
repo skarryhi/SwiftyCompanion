@@ -24,6 +24,7 @@ extension ProfileController: SetupUser {
         
         setupLocation(for: user)
         setupLevel(for: user)
+        setupProjects(user.projects_users)
     }
     
     func noLogin() {
@@ -34,7 +35,40 @@ extension ProfileController: SetupUser {
     }
     
     
-    
+    private func setupProjects(_ proj: [Project]) {
+        var exams = [Project]()
+        var c42 = [Project]()
+        for i in proj {
+            if i.project.name.contains("Exam Rank") {
+                exams.append(i)
+            } else if !i.project.slug.contains("iscine") &&
+                !i.project.slug.contains("bsq") {
+                c42.append(i)
+            }
+        }
+
+        exams.forEach {
+            projects.text! += "\($0.project.name)\n"
+            if let mark = $0.final_mark {
+                proc.text! += "\(mark)\n"
+            } else {
+                proc.text! += "0\n"
+            }
+        }
+        
+        projects.text! += "\n"
+        proc.text! += "\n"
+        
+        c42.forEach {
+            projects.text! += "\($0.project.name)\n"
+            if let mark = $0.final_mark {
+                proc.text! += "\(mark)\n"
+            } else {
+                proc.text! += "0\n"
+            }
+        }
+        
+    }
     
     private func setupLevel(for user: User) {
         

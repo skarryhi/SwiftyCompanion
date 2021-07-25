@@ -15,6 +15,7 @@ class ProfileController: UIViewController {
     var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        sv.alwaysBounceVertical = true
         return sv
     }()
     
@@ -67,14 +68,14 @@ class ProfileController: UIViewController {
     var projects: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
-        lbl.text = "project\nprojects"
+        lbl.text = ""
         return lbl
     }()
     
     var proc: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
-        lbl.text = "100\n20"
+        lbl.text = ""
         lbl.textAlignment = .right
         return lbl
     }()
@@ -169,6 +170,7 @@ class ProfileController: UIViewController {
         
         projects.anchor(top: level.bottomAnchor,
                         left: level.leftAnchor,
+                        bottom: scrollView.bottomAnchor,
                         
                         paddingTop: screenHeight / 20,
                         
