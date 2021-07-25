@@ -27,7 +27,7 @@ class ProfileController: UIViewController {
     
     var userImage: UIImageView = {
         let im = UIImageView()
-        im.layer.masksToBounds = true
+        im.contentMode = .scaleAspectFit
         return im
     }()
     
