@@ -61,36 +61,26 @@ class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
     
     private func addTextField() {
         view.addSubview(textField)
-        textField.anchor(top: nil,
-                         left: view.safeAreaLayoutGuide.centerXAnchor,
+        textField.anchor(left: view.safeAreaLayoutGuide.centerXAnchor,
                          bottom: view.safeAreaLayoutGuide.centerYAnchor,
                          right: view.safeAreaLayoutGuide.centerXAnchor,
                          
-                         paddingTop: 0,
                          paddingLeft: -(UIScreen.main.bounds.width / 2.5),
                          paddingBottom: UIScreen.main.bounds.width / 20,
                          paddingRight: -(UIScreen.main.bounds.width / 2.5),
                          
-                         width: 0,
-                         height: 40,
-                         enableInsets: false)
+                         height: 40)
     }
     
     private func addLable() {
         view.addSubview(lable)
-        lable.anchor(top: nil,
-                         left: textField.leftAnchor,
-                         bottom: textField.topAnchor,
-                         right: textField.rightAnchor,
-                         
-                         paddingTop: 0,
-                         paddingLeft: 0,
-                         paddingBottom: 5,
-                         paddingRight: 0,
-                         
-                         width: 0,
-                         height: 40,
-                         enableInsets: false)
+        lable.anchor(left: textField.leftAnchor,
+                     bottom: textField.topAnchor,
+                     right: textField.rightAnchor,
+                     
+                     paddingBottom: 5,
+                     
+                     height: 40)
     }
     
     // MARK: - TextFieldDelegate
@@ -101,9 +91,10 @@ class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
         if let text = textField.text, textField.text != "" {
             vc.login = text
             vc.managerApi = self
+            manager42.presenterForUser = vc
             present(vc, animated: true, completion: nil)
         }
         return true
     }
-
+    
 }

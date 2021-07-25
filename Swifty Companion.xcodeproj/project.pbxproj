@@ -10,18 +10,17 @@
 		6885EF69268B0CDB0050C248 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF68268B0CDB0050C248 /* AppDelegate.swift */; };
 		6885EF6B268B0CDB0050C248 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF6A268B0CDB0050C248 /* SceneDelegate.swift */; };
 		6885EF6D268B0CDB0050C248 /* FinderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF6C268B0CDB0050C248 /* FinderController.swift */; };
-		6885EF72268B0CE00050C248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6885EF71268B0CE00050C248 /* Assets.xcassets */; };
 		6885EF75268B0CE00050C248 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6885EF73268B0CE00050C248 /* LaunchScreen.storyboard */; };
 		6885EF7D268B14A70050C248 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF7C268B14A70050C248 /* ViewExtension.swift */; };
 		6885EF7F268B44E00050C248 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF7E268B44E00050C248 /* ProfileController.swift */; };
-		6885EF81268B62130050C248 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885EF80268B62130050C248 /* ProfileCell.swift */; };
 		6894D1EC268C80B000E8D9B1 /* Manager42.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894D1EB268C80B000E8D9B1 /* Manager42.swift */; };
 		6894D1EE268CB03F00E8D9B1 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894D1ED268CB03F00E8D9B1 /* AccessToken.swift */; };
-		68AB788626A58792006B60F6 /* PresentCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB788526A58792006B60F6 /* PresentCellData.swift */; };
+		68AB788626A58792006B60F6 /* PresentUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB788526A58792006B60F6 /* PresentUserData.swift */; };
 		68AB789626A5B5FA006B60F6 /* Token.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68AB789426A5B5FA006B60F6 /* Token.xcdatamodeld */; };
 		68AB789C26A5B7F3006B60F6 /* Token+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB789B26A5B7F3006B60F6 /* Token+CoreDataProperties.swift */; };
 		68AB789E26A5B9B1006B60F6 /* ClassToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB789D26A5B9B1006B60F6 /* ClassToken.swift */; };
 		FA098D0326AC5F5500406B38 /* ManagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA098D0226AC5F5500406B38 /* ManagerData.swift */; };
+		FA21AC9626ADB4C000D6BBB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA21AC9526ADB4C000D6BBB0 /* Assets.xcassets */; };
 		FA41074E268DE7FC00DAC070 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA41074D268DE7FC00DAC070 /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,19 +29,18 @@
 		6885EF68268B0CDB0050C248 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6885EF6A268B0CDB0050C248 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6885EF6C268B0CDB0050C248 /* FinderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderController.swift; sourceTree = "<group>"; };
-		6885EF71268B0CE00050C248 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6885EF74268B0CE00050C248 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6885EF76268B0CE10050C248 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6885EF7C268B14A70050C248 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6885EF7E268B44E00050C248 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		6885EF80268B62130050C248 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		6894D1EB268C80B000E8D9B1 /* Manager42.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Manager42.swift; path = "Swifty Companion/Networking/Manager42.swift"; sourceTree = SOURCE_ROOT; };
 		6894D1ED268CB03F00E8D9B1 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
-		68AB788526A58792006B60F6 /* PresentCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentCellData.swift; sourceTree = "<group>"; };
+		68AB788526A58792006B60F6 /* PresentUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentUserData.swift; sourceTree = "<group>"; };
 		68AB789526A5B5FA006B60F6 /* Token.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Token.xcdatamodel; sourceTree = "<group>"; };
 		68AB789B26A5B7F3006B60F6 /* Token+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Token+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		68AB789D26A5B9B1006B60F6 /* ClassToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassToken.swift; sourceTree = "<group>"; };
 		FA098D0226AC5F5500406B38 /* ManagerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerData.swift; sourceTree = "<group>"; };
+		FA21AC9526ADB4C000D6BBB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA41074D268DE7FC00DAC070 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,13 +77,13 @@
 				6885EF68268B0CDB0050C248 /* AppDelegate.swift */,
 				6885EF6A268B0CDB0050C248 /* SceneDelegate.swift */,
 				6885EF82268B66B50050C248 /* ViewControllers */,
-				68AB788426A580B3006B60F6 /* Networking */,
-				FAD6A46826AC6B62002EA7E3 /* Presentation */,
-				FAD6A46726AC6B2D002EA7E3 /* Dataworking */,
 				68AB788726A58DAB006B60F6 /* Models */,
+				68AB788426A580B3006B60F6 /* Networking */,
+				FAD6A46726AC6B2D002EA7E3 /* Dataworking */,
+				FAD6A46826AC6B62002EA7E3 /* Presentation */,
 				6885EF7C268B14A70050C248 /* ViewExtension.swift */,
-				6885EF71268B0CE00050C248 /* Assets.xcassets */,
 				6885EF73268B0CE00050C248 /* LaunchScreen.storyboard */,
+				FA21AC9526ADB4C000D6BBB0 /* Assets.xcassets */,
 				6885EF76268B0CE10050C248 /* Info.plist */,
 			);
 			path = "Swifty Companion";
@@ -95,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				6885EF6C268B0CDB0050C248 /* FinderController.swift */,
-				68AB788926A58E07006B60F6 /* ProfileController */,
+				6885EF7E268B44E00050C248 /* ProfileController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -120,15 +118,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		68AB788926A58E07006B60F6 /* ProfileController */ = {
-			isa = PBXGroup;
-			children = (
-				6885EF7E268B44E00050C248 /* ProfileController.swift */,
-				6885EF80268B62130050C248 /* ProfileCell.swift */,
-			);
-			path = ProfileController;
-			sourceTree = "<group>";
-		};
 		FAD6A46726AC6B2D002EA7E3 /* Dataworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +129,7 @@
 		FAD6A46826AC6B62002EA7E3 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				68AB788526A58792006B60F6 /* PresentCellData.swift */,
+				68AB788526A58792006B60F6 /* PresentUserData.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -202,8 +191,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA21AC9626ADB4C000D6BBB0 /* Assets.xcassets in Resources */,
 				6885EF75268B0CE00050C248 /* LaunchScreen.storyboard in Resources */,
-				6885EF72268B0CE00050C248 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,11 +209,10 @@
 				68AB789626A5B5FA006B60F6 /* Token.xcdatamodeld in Sources */,
 				6885EF69268B0CDB0050C248 /* AppDelegate.swift in Sources */,
 				FA098D0326AC5F5500406B38 /* ManagerData.swift in Sources */,
-				6885EF81268B62130050C248 /* ProfileCell.swift in Sources */,
 				6885EF7D268B14A70050C248 /* ViewExtension.swift in Sources */,
 				FA41074E268DE7FC00DAC070 /* User.swift in Sources */,
 				68AB789E26A5B9B1006B60F6 /* ClassToken.swift in Sources */,
-				68AB788626A58792006B60F6 /* PresentCellData.swift in Sources */,
+				68AB788626A58792006B60F6 /* PresentUserData.swift in Sources */,
 				6894D1EC268C80B000E8D9B1 /* Manager42.swift in Sources */,
 				6885EF6B268B0CDB0050C248 /* SceneDelegate.swift in Sources */,
 				6894D1EE268CB03F00E8D9B1 /* AccessToken.swift in Sources */,

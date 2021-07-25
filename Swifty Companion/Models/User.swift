@@ -9,11 +9,12 @@ import Foundation
 
 struct ProjectInfo: Codable {
     let name: String
+    let slug: String
 }
 
 struct Project: Codable {
     let status: String
-    let cursus_ids: [Int]
+    let final_mark: Int?
     let project: ProjectInfo
 }
 
@@ -23,7 +24,7 @@ struct Campus: Codable {
 
 struct Cursus: Codable {
     let cursus_id: Int
-    let level: Float
+    let level: Double
 }
 
 struct User: Codable {
