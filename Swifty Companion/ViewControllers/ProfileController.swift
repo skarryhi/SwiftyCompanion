@@ -68,17 +68,12 @@ class ProfileController: UIViewController {
     var projects: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
-        lbl.text = ""
+        lbl.textAlignment = .center
+        lbl.attributedText = NSMutableAttributedString()
+        
         return lbl
     }()
     
-    var proc: UILabel = {
-        let lbl = UILabel()
-        lbl.numberOfLines = 0
-        lbl.text = ""
-        lbl.textAlignment = .right
-        return lbl
-    }()
     
     var login = ""
     weak var managerApi: ManagerApi?
@@ -96,12 +91,12 @@ class ProfileController: UIViewController {
         scrollView.addSubview(level)
         scrollView.addSubview(levelLable)
         scrollView.addSubview(projects)
-        scrollView.addSubview(proc)
         
         setupConstraints()
         
         managerApi?.manager42.getUser(for: login)
     }
+    
     
     private func setupConstraints() {
         
@@ -168,20 +163,12 @@ class ProfileController: UIViewController {
                           bottom: level.bottomAnchor,
                           right: level.rightAnchor)
         
+        
         projects.anchor(top: level.bottomAnchor,
                         left: level.leftAnchor,
                         bottom: scrollView.bottomAnchor,
-                        
-                        paddingTop: screenHeight / 20,
-                        
-                        width: screenWidth / 1.8)
-        
-        proc.anchor(top: level.bottomAnchor,
-                    right: level.rightAnchor,
-                    
-                    paddingTop: screenHeight / 20,
-                    
-                    width: screenWidth / 5)
+                        right: level.rightAnchor,
+                        paddingTop: screenHeight / 25)
         
     }
 }

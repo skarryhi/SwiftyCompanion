@@ -116,7 +116,11 @@ class Manager42 {
                     self.presenterForUser.setupUser(for: user, with: image)
                 }
             } else if (try? JSONDecoder().decode(ErrorAccessToken.self, from: data)) != nil {
-                self.requestAccessToken() }
+                DispatchQueue.global().sync {
+                    self.requestAccessToken()
+                }
+                self.getUser(for: login)
+            }
             else {
                 DispatchQueue.main.async {
                     self.presenterForUser.noLogin()

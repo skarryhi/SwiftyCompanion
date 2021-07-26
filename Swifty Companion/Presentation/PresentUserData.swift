@@ -36,38 +36,34 @@ extension ProfileController: SetupUser {
     
     
     private func setupProjects(_ proj: [Project]) {
-        var exams = [Project]()
-        var c42 = [Project]()
+        var exams = [(String, Bool?)]()
+        var c42 = [(String, Bool?)]()
         for i in proj {
-            if i.project.name.contains("Exam Rank") {
-                exams.append(i)
-            } else if !i.project.slug.contains("iscine") &&
-                !i.project.slug.contains("bsq") {
-                c42.append(i)
+            if i.project.name.lowercased().contains("exam") && !i.project.slug.lowercased().contains("piscine") {
+                exams.append((i.project.name, i.validated))
+            } else if !i.project.slug.lowercased().contains("piscine") {
+                c42.append((i.project.name, i.validated))
             }
         }
-
+        let res = NSMutableAttributedString()
+        exams += [("", nil)] + c42
         exams.forEach {
-            projects.text! += "\($0.project.name)\n"
-            if let mark = $0.final_mark {
-                proc.text! += "\(mark)\n"
+            var str = NSAttributedString()
+            if let val = $0.1 {
+                if val {
+                    str = NSAttributedString(string: $0.0 + "\n", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0, green: 0.5363702178, blue: 0.1889698505, alpha: 1),
+                                                                                      NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
+                } else {
+                    str = NSAttributedString(string: $0.0 + "\n", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.7372969985, green: 0.1176088527, blue: 0.01814407855, alpha: 1),
+                                                                               NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
+                }
             } else {
-                proc.text! += "0\n"
+                str = NSAttributedString(string: $0.0 + "\n", attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8798888326, green: 0.5868710876, blue: 0.09822719544, alpha: 1),
+                                                                           NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)])
             }
+            res.append(str)
         }
-        
-        projects.text! += "\n"
-        proc.text! += "\n"
-        
-        c42.forEach {
-            projects.text! += "\($0.project.name)\n"
-            if let mark = $0.final_mark {
-                proc.text! += "\(mark)\n"
-            } else {
-                proc.text! += "0\n"
-            }
-        }
-        
+        projects.attributedText = res
     }
     
     private func setupLevel(for user: User) {

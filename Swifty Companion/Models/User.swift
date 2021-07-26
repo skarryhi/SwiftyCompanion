@@ -13,9 +13,15 @@ struct ProjectInfo: Codable {
 }
 
 struct Project: Codable {
-    let status: String
     let final_mark: Int?
     let project: ProjectInfo
+    let validated: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case final_mark
+        case project
+        case validated = "validated?"
+    }
 }
 
 struct Campus: Codable {
