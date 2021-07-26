@@ -28,14 +28,29 @@ class Manager42 {
         return components.url
     }
     
-    private func getImage(for user: User) -> UIImage? {
-        var image = #imageLiteral(resourceName: "Image")
+    private func getImage(for user: User) -> [UIImage]? {
+        var images = [#imageLiteral(resourceName: "Image")]
         if user.image_url != "https://cdn.intra.42.fr/users/default.png" {
+            if user.image_url.hasSuffix("gif") {
+                guard let url = URL(string: user.image_url),
+                    let gifData = try? Data(contentsOf: url),
+                    let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else { return images }
+                let imageCount = CGImageSourceGetCount(source)
+                var gif = [UIImage]()
+                for i in 0 ..< imageCount {
+                    if let image = CGImageSourceCreateImageAtIndex(source, i, nil) {
+                        gif.append(UIImage(cgImage: image))
+                    }
+                }
+                return gif
+            }
             guard let url = URL(string: user.image_url),
                 let data = try? Data(contentsOf: url),
-                let img = UIImage(data: data)else {return nil}
-            image = img}
-        return image
+                let img = UIImage(data: data)else {return images}
+            images = [img]
+            
+        }
+        return images
     }
     
     

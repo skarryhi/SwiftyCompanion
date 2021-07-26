@@ -9,17 +9,18 @@ import UIKit
 
 
 protocol SetupUser: class {
-    func setupUser(for user: User, with image: UIImage)
+    func setupUser(for user: User, with image: [UIImage])
     func noLogin()
 }
 
 extension ProfileController: SetupUser {
     
-    func setupUser(for user: User, with image: UIImage) {
+    func setupUser(for user: User, with image: [UIImage]) {
         indicator.stopAnimating()
         
         
-        userImage.image = image
+        userImage.animationImages = image
+        userImage.startAnimating()
         userNamePool.text = ("\(user.displayname), \(user.login)\n\nPool: \(user.pool_month) \(user.pool_year)")
         
         setupLocation(for: user)
@@ -41,7 +42,7 @@ extension ProfileController: SetupUser {
         for i in proj {
             if i.project.name.lowercased().contains("exam") && !i.project.slug.lowercased().contains("piscine") {
                 exams.append((i.project.name, i.validated))
-            } else if !i.project.slug.lowercased().contains("piscine") {
+            } else if !i.project.slug.lowercased().contains("piscine") && !i.project.slug.contains("bsq") {
                 c42.append((i.project.name, i.validated))
             }
         }
