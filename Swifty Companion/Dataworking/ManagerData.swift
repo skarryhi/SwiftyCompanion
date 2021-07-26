@@ -18,7 +18,9 @@ class Dataworking {
 
             if let getted = data.last {
                 complition(getted)
-                print("getFromCach: \(getted.access_token)")
+                if let tok = getted.access_token {
+                    print("getFromCach: \(tok)")
+                }
             }
             
         } catch {

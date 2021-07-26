@@ -120,10 +120,10 @@ class Manager42 {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else { print("NO HAVE DATA"); return }
             
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: [])
 //                print(json)
-            } catch { print (error) }
+//            } catch { print (error) }
             
             if let user = try? JSONDecoder().decode(User.self, from: data) {
                 guard let image = self.getImage(for: user) else {return}
