@@ -30,9 +30,9 @@ class Manager42 {
     
     private func getImage(for user: User) -> [UIImage]? {
         var images = [#imageLiteral(resourceName: "Image")]
-        if user.image_url != "https://cdn.intra.42.fr/users/default.png" {
-            if user.image_url.hasSuffix("gif") {
-                guard let url = URL(string: user.image_url),
+        if user.imageUrl != "https://cdn.intra.42.fr/users/default.png" {
+            if user.imageUrl.hasSuffix("gif") {
+                guard let url = URL(string: user.imageUrl),
                     let gifData = try? Data(contentsOf: url),
                     let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else { return images }
                 let imageCount = CGImageSourceGetCount(source)
@@ -44,7 +44,7 @@ class Manager42 {
                 }
                 return gif
             }
-            guard let url = URL(string: user.image_url),
+            guard let url = URL(string: user.imageUrl),
                 let data = try? Data(contentsOf: url),
                 let img = UIImage(data: data)else {return images}
             images = [img]

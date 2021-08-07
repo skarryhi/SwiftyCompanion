@@ -13,12 +13,12 @@ struct ProjectInfo: Codable {
 }
 
 struct Project: Codable {
-    let final_mark: Int?
+    let finalMark: Int?
     let project: ProjectInfo
     let validated: Bool?
     
     enum CodingKeys: String, CodingKey {
-        case final_mark
+        case finalMark = "final_mark"
         case project
         case validated = "validated?"
     }
@@ -29,19 +29,36 @@ struct Campus: Codable {
 }
 
 struct Cursus: Codable {
-    let cursus_id: Int
+    let cursusId: Int
     let level: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case cursusId = "cursus_id"
+        case level
+    }
 }
 
 struct User: Codable {
     let displayname: String
     let login: String
-    let image_url: String
+    let imageUrl: String
     let location: String?
-    let pool_month: String
-    let pool_year: String
-    let projects_users: [Project]
+    let poolMonth: String
+    let poolYear: String
+    let projectsUsers: [Project]
     let campus: [Campus]
-    let cursus_users: [Cursus]
+    let cursusUsers: [Cursus]
+    
+    enum CodingKeys: String, CodingKey {
+        case displayname
+        case login
+        case imageUrl = "image_url"
+        case location
+        case poolMonth = "pool_month"
+        case poolYear = "pool_year"
+        case projectsUsers = "projects_users"
+        case campus
+        case cursusUsers = "cursus_users"
+    }
 }
 

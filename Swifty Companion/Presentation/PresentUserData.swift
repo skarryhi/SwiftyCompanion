@@ -21,11 +21,11 @@ extension ProfileController: SetupUser {
         
         scrollView.userImage.animationImages = image
         scrollView.userImage.startAnimating()
-        scrollView.userNamePool.text = ("\(user.displayname), \(user.login)\n\nPool: \(user.pool_month) \(user.pool_year)")
+        scrollView.userNamePool.text = ("\(user.displayname), \(user.login)\n\nPool: \(user.poolMonth) \(user.poolYear)")
         
         setupLocation(for: user)
         setupLevel(for: user)
-        setupProjects(user.projects_users)
+        setupProjects(user.projectsUsers)
     }
     
     func noLogin() {
@@ -69,7 +69,7 @@ extension ProfileController: SetupUser {
     
     private func setupLevel(for user: User) {
         scrollView.level.isHidden = false
-        let lvl = user.cursus_users.last!.level
+        let lvl = user.cursusUsers.last!.level
         let arrLevel = String(lvl).split(separator: ".")
         let progress = Float("0.\(arrLevel.last!)")!
         scrollView.level.setProgress(progress, animated: true)
