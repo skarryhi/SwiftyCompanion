@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol ManagerApi: class {
+protocol ManagerApi: AnyObject {
     var manager42: Manager42 { get }
 }
 
-protocol ManagerData: class {
+protocol ManagerData: AnyObject {
     var managerData: ManagerData { get }
 }
 
