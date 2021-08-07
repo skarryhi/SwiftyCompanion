@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol SetupUser: class {
+protocol SetupUser: AnyObject {
     func setupUser(for user: User, with image: [UIImage])
     func noLogin()
 }
@@ -16,12 +16,12 @@ protocol SetupUser: class {
 extension ProfileController: SetupUser {
     
     func setupUser(for user: User, with image: [UIImage]) {
-        indicator.stopAnimating()
+        scrollView.indicator.stopAnimating()
         
         
-        userImage.animationImages = image
-        userImage.startAnimating()
-        userNamePool.text = ("\(user.displayname), \(user.login)\n\nPool: \(user.pool_month) \(user.pool_year)")
+        scrollView.userImage.animationImages = image
+        scrollView.userImage.startAnimating()
+        scrollView.userNamePool.text = ("\(user.displayname), \(user.login)\n\nPool: \(user.pool_month) \(user.pool_year)")
         
         setupLocation(for: user)
         setupLevel(for: user)
@@ -29,10 +29,10 @@ extension ProfileController: SetupUser {
     }
     
     func noLogin() {
-        indicator.stopAnimating()
+        scrollView.indicator.stopAnimating()
         
-        userImage.image = #imageLiteral(resourceName: "IMAGE 2021-07-25 18:45:14")
-        userNamePool.text = "Login not found   "
+        scrollView.userImage.image = #imageLiteral(resourceName: "IMAGE 2021-07-25 18:45:14")
+        scrollView.userNamePool.text = "Login not found   "
     }
     
     
@@ -64,25 +64,24 @@ extension ProfileController: SetupUser {
             }
             res.append(str)
         }
-        projects.attributedText = res
+        scrollView.projects.attributedText = res
     }
     
     private func setupLevel(for user: User) {
-        
-        level.isHidden = false
+        scrollView.level.isHidden = false
         let lvl = user.cursus_users.last!.level
         let arrLevel = String(lvl).split(separator: ".")
         let progress = Float("0.\(arrLevel.last!)")!
-        level.setProgress(progress, animated: true)
-        levelLable.text = "level \(arrLevel.first!) - \(arrLevel.last!)%"
+        scrollView.level.setProgress(progress, animated: true)
+        scrollView.levelLabel.text = "level \(arrLevel.first!) - \(arrLevel.last!)%"
     }
     
     private func setupLocation(for user: User) {
         let cumpusName = user.campus.last?.name ?? ""
         if let online = user.location {
-            userOnline.text = "Location: \(cumpusName)\n\(online)"
+            scrollView.userLocation.text = "Location: \(cumpusName)\n\(online)"
         } else {
-            userOnline.text = "Location: \(cumpusName)\noffline"
+            scrollView.userLocation.text = "Location: \(cumpusName)\noffline"
         }
     }
 }

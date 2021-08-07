@@ -15,9 +15,9 @@ protocol ManagerData: AnyObject {
     var managerData: ManagerData { get }
 }
 
-class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
+final class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
     
-    var textField: UITextField = {
+    private var textField: UITextField = {
         let tf = UITextField()
         tf.borderStyle = .roundedRect
         tf.placeholder = "Enter 42 login"
@@ -27,7 +27,7 @@ class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
         return tf
     }()
     
-    var lable: UILabel = {
+    private var lable: UILabel = {
         let lable = UILabel()
         lable.text = "🔍 Search "
         lable.textAlignment = .center
@@ -41,7 +41,12 @@ class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
         super.viewDidLoad()
         
         manager42.dataworking = managerData
-        setupController()
+        
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        textField.delegate = self
+        addTextField()
+        addLable()
+        enableHideKeyboard()
     }
     
     private func enableHideKeyboard() {
@@ -50,14 +55,7 @@ class FinderController: UIViewController, UITextFieldDelegate, ManagerApi {
     }
     
     // MARK: - View
-    
-    private func setupController() {
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        textField.delegate = self
-        addTextField()
-        addLable()
-        enableHideKeyboard()
-    }
+
     
     private func addTextField() {
         view.addSubview(textField)
